@@ -17,7 +17,7 @@ if($section == 'users'){
   require_once '../app/pages/admin/users-controller.php';
 }// this file is connected to users.php, it manages its post requests
 elseif($section == "categories"){
-  require_once '../app/pages/admin/users-controller.php';
+  require_once '../app/pages/admin/categories-controller.php';
 }elseif($section =='posts'){
   require_once '../app/pages/admin/users-controller.php';
 

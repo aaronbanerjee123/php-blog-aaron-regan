@@ -12,6 +12,7 @@
 
     
     $PAGE = get_pagination_vars();
+  
 
     if(file_exists($filename)) {
         require_once $filename;

@@ -1,6 +1,6 @@
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
-          <form method="post">
+          <form method="post" enctype="multipart/form-data">
           <a href="home">
             <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
           </a>
@@ -12,6 +12,22 @@
             Please fix the errors below
           </div>
         <?php  }?>
+
+          <div class="my-2">
+                  <label class="d-block">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
+                    <input onchange="display_image_edit(this.files[0])" type="file" name="image">
+                 </label>
+
+             
+                
+                  <script>
+                      function display_image_edit(file){
+                        document.querySelector(".image-preview-edit").src=URL.createObjectURL(file); 
+                      }
+
+                  </script>
+            </div>
 
           <div class="form-floating">
             <input value="<?php echo old_value('username')?>" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
@@ -35,6 +51,26 @@
                 <?php echo $errors['email'];?>
             </div>
             <?php }?>
+
+
+
+          <div class="form-floating my-3">
+            <select name="role" class="form-select">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <label for="form-select">Role</label>
+          </div>
+
+            
+          <?php if(!empty($errors['role'])){ ?>
+            <div class="text-danger">
+                <?php echo $errors['role'];?>
+            </div>
+            <?php }?>
+
+
+
 
           <div class="form-floating">
             <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
@@ -64,7 +100,7 @@
 <?php elseif($action == 'edit'):?>
 
                   <div class="col-md-6 mx-auto">
-                  <form method="post">
+                  <form method="post" enctype="multipart/form-data">
                   <a href="home">
                     <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
                   </a>
@@ -82,7 +118,7 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;"></div>
                     <input type="file" name="image" onchange="display_image_edit(this.files[0])">
                   </label>
                 
@@ -90,9 +126,7 @@
                       function display_image_edit(file){
                         document.querySelector(".image-preview-edit").src=URL.createObjectURL(file); 
                       }
-
                   </script>
-                
                 </div>
 
 
@@ -106,6 +140,24 @@
                         <?php echo $errors['username'];?>
                     </div>
                     <?php }?>
+
+
+
+
+          <div class="form-floating my-3">
+            <select name="role" class="form-select">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <label for="form-select">Role</label>
+          </div>
+
+            
+          <?php if(!empty($errors['role'])){ ?>
+            <div class="text-danger">
+                <?php echo $errors['role'];?>
+            </div>
+            <?php }?>
 
 
                   <div class="form-floating">
@@ -223,12 +275,10 @@
 
     <?php 
        
-        $limit = 10;  
-        $offset = ($PAGE['page_number'] - 1)*$limit;
+        // $limit = 10;  
+        // $offset = ($PAGE['page_number'] - 1)*$limit;
 
-
-
-        $query = "select * from users order by id desc $limit 10";
+        $query = "select * from users order by id desc";
         $rows = query($query); //confused how we have access to query here
     ?>
 
@@ -240,7 +290,10 @@
         <td><?=$row['email']?></td>
         <td><?=$row['role']?></td>
 
-        <td><img src="<?=get_image($row['image'])?>" style="width:100px;height:100px;object-fit:cover;"></td>
+        <td>
+  
+          <img src="<?=get_image($row['image'])?>" style="width:100px;height:100px;object-fit:cover;">
+        </td>
 
         <td><?=$row['date']?></td>
      
@@ -270,7 +323,6 @@
    <a href="<?=$PAGE['next_link']?>">
     <button class="btn btn-primary float-end">Next Page</button>
    </a>
-
 </div>
 
 </div>
