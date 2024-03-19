@@ -29,6 +29,7 @@
           <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
           <li><a href="<?=ROOT?>/blog" class="nav-link px-2 link-dark">Blog</a></li>
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
+          <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
         </ul>
 
         <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
@@ -95,7 +96,7 @@
 
           if($find){
             $find = "%$find%";
-            $query = "select * from posts join categories on posts.category_id= categories.id where posts.title like :find order by posts.id desc limit 6";
+            $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id where posts.title like :find order by posts.id desc limit 6";
             $rows = query($query, ['find'=> $find]);
           }   
 

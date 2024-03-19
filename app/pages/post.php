@@ -29,6 +29,7 @@
           <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
           <li><a href="<?=ROOT?>/blog" class="nav-link px-2 link-dark">Blog</a></li>
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
+          <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
         </ul>
 
        
@@ -86,41 +87,25 @@
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Post</h3>
+
 
  <div class="row my-2">
   
         <?php 
-          $slug = $url[1] ?? null;
+          $slug = $url[1];
           $row = null;
+          
 
           if ($slug) {
             $query = "select * from posts join categories on posts.category_id= categories.id where posts.slug=:slug limit 1";
-            $row = query_row($query,['slug'=>$slug]);
-            ?>
-            <div><?=$slug?></div>
-
-       <?php   }
-          if(!empty($row)){ ?>
-
-             
-                <div class="col-md-6">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary"><?=$row['category']?></strong>
-                    <h3 class="mb-0"><?=$row['title']?></h3>
-                    <div class="mb-1 text-muted"><?=date("Y-m-d",strtotime($row['date']))?></div>
-                    <p class="card-text mb-auto"><?=substr($row['content'],0,200)?></p>
-                    <a href="#" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-lg-5 col-12 d-lg-block">
-                    <img src="<?=get_image($row['image'])?>" class="bd-placeholder-img w-100"  height="250" style="object-fit:cover;" />
-                </div> 
-                </div>
-                </div>
-
-            
-     <?php     }else{
+            $row = query_row($query,['slug'=>$slug]);     
+          }
+          if(!empty($row)){ 
+            $user_id = $row['user_id'];
+            $query_2 = "select users.username from users where id=:id limit 1";
+            $row2 = query_row($query_2, ['id' => $row['user_id']]);
+            include '../app/pages/includes/post-single.php';      
+         }else{
             echo "No items found";
           }
   

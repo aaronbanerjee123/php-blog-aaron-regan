@@ -16,7 +16,8 @@
           <div class="my-2">
                 Featured Image: <br>
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">
+                  </div>
                     <input onchange="display_image_edit(this.files[0])" type="file" name="image">
                  </label>
 

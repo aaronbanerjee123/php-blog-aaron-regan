@@ -43,6 +43,16 @@ function esc($str) {
 
 function redirect_login(){
     header('Location: http://localhost/zoots/public/login/');
+
+
+    die;
+}
+
+
+function redirect_blogs(){
+    header('Location: http://localhost/zoots/public/blog/');
+
+
     die;
 }
 

@@ -2,8 +2,8 @@
   if(!logged_in()){
     redirect_login();
   }
-  $section = $url[1] ?? 'dashboard';
-  $action = $url[2] ?? 'view';
+  $section = $url[1] ?? 'dashboard';//users
+  $action = $url[2] ?? 'view';//add
   $id = $url[3] ?? 0;
 
   

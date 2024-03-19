@@ -44,9 +44,9 @@ if($action == 'add'){
         //   $slug2 = query($query, ['slug'=>$slug]); // could use $_POST['email'] if i did email = ? in query
         //   // to query for info you just type query function, but you must use prepared statements when configuring things in the database like in functions page
       
-          if($slug2){
-            $slug = $slug2.rand(1000,9999);
-          } 
+          // if($slug2){
+          //   $slug = $slug2.rand(1000,9999);
+          // } 
 
 
 
