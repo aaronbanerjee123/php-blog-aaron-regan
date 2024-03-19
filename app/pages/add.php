@@ -61,7 +61,7 @@
           print_r($data);
       
           query($query, $data);
-          redirect_blogs();
+          redirect_home();
           
         }
       }
@@ -90,7 +90,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a href="<?=ROOT?>/blog" class="nav-link px-2 link-dark">Blog</a></li>
+          <li><a href="<?=ROOT?>/edit" class="nav-link px-2 link-dark">Edit Blog</a></li>
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
           <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
         </ul>
@@ -151,7 +151,8 @@
 
 
 <div class="container text-center">
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
+    
     <div class="form-group">
     <h1>Add a new Blog</h1>
 

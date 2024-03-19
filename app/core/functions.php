@@ -49,8 +49,8 @@ function redirect_login(){
 }
 
 
-function redirect_blogs(){
-    header('Location: http://localhost/zoots/public/blog/');
+function redirect_home(){
+    header('Location: http://localhost/zoots/public/');
 
 
     die;
@@ -76,6 +76,11 @@ function redirect_admin_categories(){
 
 function redirect_admin_posts(){
     header('Location: http://localhost/zoots/public/admin/posts');
+    die;
+}
+
+function redirect_admin_myblogs(){
+    header('Location: http://localhost/zoots/public/myblogs');
     die;
 }
 
