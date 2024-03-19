@@ -313,7 +313,7 @@
     <?php } ?>
 </table>
 
-<div class="col-md-12 mb-4">
+<!-- <div class="col-md-12 mb-4">
   <a href="<?=$PAGE['first_link']?>">
     <button class="btn btn-primary">First Page</button>
    </a>
@@ -323,7 +323,7 @@
    <a href="<?=$PAGE['next_link']?>">
     <button class="btn btn-primary float-end">Next Page</button>
    </a>
-</div>
+</div> -->
 
 </div>
 

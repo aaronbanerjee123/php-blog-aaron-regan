@@ -1,5 +1,4 @@
 <?php
-
 if($action == 'add'){
     if(!empty($_POST)){
       $errors = [];
@@ -13,7 +12,7 @@ if($action == 'add'){
       }
 
       $slug = str_to_url($_POST['category']);
-      echo $slug;
+      // echo $slug;
       // $query = "select id from categories where slug = :slug limit 1";// full colons means provided later
       // $slug2 = query($query, ['slug'=>$slug]); // could use $_POST['email'] if i did email = ? in query
       // // to query for info you just type query function, but you must use prepared statements when configuring things in the database like in functions page
@@ -22,100 +21,22 @@ if($action == 'add'){
       //   $slug = $slug2.rand(1000,9999);
       // } 
 
-
-      if(empty($errors)){
-       
+      if(empty($errors)){  
         $data = [];
         $data['category'] = $_POST['category'];
         $data['slug'] = $slug;
         $data['disabled'] = $_POST['disabled'];
-        $query = "insert into categories (category,slug,disabled) values (:category,:slug,:disabled)";// full colons means provided later
+        $query = "insert into categories (category,disabled,slug) values (:category,:disabled,:slug)";// full colons means provided later
         
        
         query($query, $data);
-        redirect_admin_users();
+        redirect_admin_categories();
         
       }
     }
-  }else if($action == 'edit'){
-    $query = "select * from users where id =:id limit 1";
-    $row = query_row($query,['id' => $id]);
-    if(!empty($_POST)){
-      if($row){
-
-      $errors = [];
-  
-      if(empty($_POST['username'])){
-        $errors['username'] = "A username is required";
-      }else if(!preg_match("/^[a-zA-Z]+$/", $_POST['username'])){
-          $errors['username'] = "A username has to be just letters";
-      }
-    
-      if(!empty($_POST['password']) && strlen($_POST['password']) < 8){
-        $errors['password'] = "Password needs to be 8 or more characters";
-      }else if($_POST['password'] !== $_POST['retype_password']){
-        $errors['password'] = "Passwords do not match";
-      }
-  
-      $query = "select id from users where email = :email && id != :id limit 1";// full colons means provided later
-      $email = query($query, ['email'=>$_POST['email'],'id' => $id]); // could use $_POST['email'] if i did email = ? in query
-      // to query for info you just type query function, but you must use prepared statements when configuring things in the database like in functions page
-  
-      if(empty($_POST['email'])){
-        $errors['email'] = 'A email is required';
-      }else if($email){
-          $errors['email'] = "That email is already in use";
-      }else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){ 
-        $errors['email'] = "Not a valid email";
-      }  
-
-      // $allowed = ['image/jpeg','image/png','image/webp'];
-      //     if(!empty($_FILES['image']['name'])){
-          
-      //       $destination = "";
-      //       if(!in_array($_FILES['image']['type'], $allowed))
-      //       {
-      //         $errors['image'] = "Image format not supported";
-      //       }else
-      //       // "/Applications/XAMPP/xamppfiles/htdocs/PHP-Blog/public/
-      //         $folder = "uploads/";
-      //         if(!file_exists($folder))
-      //         {
-      //           mkdir($folder, 0777, true);
-      //         }
-      //         $destination = $folder .$_FILES['image']['name'];
-      //         move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-      //         // resize_image($destination);
-      //     }
-
-
-      if(empty($errors)){
-        $data = [];
-        $data['username'] = $_POST['username'];
-        $data['email'] = $_POST['email'];
-        $data['role'] = $_POST['role'];
-        $data['id'] = $id;
-
-        if(empty($_POST['password'])){
-            $query = "update users set username=:username, email=:email, role=:role where id = :id limit 1";// full colons means provided later
-          
-        }else{
-          $data['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-          $query = "update users set username=:username, email=:email, password=:password, role=:role where id = :id limit 1";// full colons means provided later 
-          // if(!empty($destination)){
-          //      $data['image'] = $destination;
-          //      $query = "update users set username=:username, email=:email, password=:password, role=:role, image=:image where id = :id limit 1";// full colons means provided later
-          //   }
-        }
-
-        query($query, $data);
-        redirect_admin_users();
-  
-      }
-    } //uploads/Screen Shot 2023-03-13 at 11.24.55 AM.png
   }
-  }if($action == 'delete'){
-    $query = "select * from users where id =:id limit 1";
+  if($action == 'delete'){
+    $query = "select * from categories where id =:id limit 1";
     $row = query_row($query,['id' => $id]);
     if(isset($_POST['deleteBtn'])){
       if($row){
@@ -124,14 +45,11 @@ if($action == 'add'){
       if(empty($errors)){
         $data['id'] = $id;
 
-        $query = "delete from users where id = :id limit 1";
+        $query = "delete from categories where id = :id limit 1";
         query($query, $data);
 
-        if(file_exists($row['image'])){
-          unlink($row['image']);
-        }
-  
-        redirect_admin_users();
+       
+        redirect_admin_categories();
   
   
         

@@ -164,27 +164,27 @@
 
               <div class="form-floating">
                 <div class="form-control mb-2">
-                <?=old_value('username',$row['username'])?>
+                <?=old_value('category',$row['category'])?>
               </div>
             </div>
               
               </div>
 
-              <?php if(!empty($errors['username'])){ ?>
+              <?php if(!empty($errors['category'])){ ?>
                 <div class="text-danger">
-                    <?php echo $errors['username'];?>
+                    <?php echo $errors['category'];?>
                 </div>
                 <?php }?>
 
               <div class="form-floating">
                 <div class="form-control mb-2">
-                <?=old_value('email',$row['email'])?>
+                <?=old_value('slug',$row['slug'])?>
               </div>
             </div>
 
-              <?php if(!empty($errors['email'])){ ?>
+              <?php if(!empty($errors['slug'])){ ?>
                 <div class="text-danger">
-                    <?php echo $errors['email'];?>
+                    <?php echo $errors['slug'];?>
                 </div>
                 <?php }?>
 
@@ -237,7 +237,6 @@
 
       
      
-        <td><a class="text-white" href="<?=ROOT?>/admin/categories/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
         
 <!--            
         <a class="text-white" href="<?=ROOT?>/admin/categories/edit/<?=$row['id']?>">Add New</a>

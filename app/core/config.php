@@ -1,3 +1,3 @@
 <?php
-    define('ROOT','http://localhost/php-blog/public');
+    define('ROOT','http://localhost/zoots/public');
     define('APP_NAME',"My blog");

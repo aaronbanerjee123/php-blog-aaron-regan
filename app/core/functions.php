@@ -42,20 +42,34 @@ function esc($str) {
 // }
 
 function redirect_login(){
-    header('Location: http://localhost/php-blog/public/login/');
+    header('Location: http://localhost/zoots/public/login/');
     die;
 }
 
 
 function redirect_admin(){
-    header('Location: http://localhost/php-blog/public/admin/');
+    header('Location: http://localhost/zoots/public/admin/');
     die;
 }
 
 function redirect_admin_users(){
-    header('Location: http://localhost/php-blog/public/admin/users');
+    header('Location: http://localhost/zoots/public/admin/users');
     die;
 }
+
+
+
+function redirect_admin_categories(){
+    header('Location: http://localhost/zoots/public/admin/categories');
+    die;
+}
+
+function redirect_admin_posts(){
+    header('Location: http://localhost/zoots/public/admin/posts');
+    die;
+}
+
+
 
 function old_value($key, $default = ''){
     if(!empty($_POST[$key])){
@@ -93,6 +107,18 @@ function authenticate($row){
 }
 
 
+function user($key=''){
+    if(empty($key)){
+        return $_SESSION['USER'];
+    }
+    if(!empty($_SESSION['USER'][$key])){
+        return $_SESSION['USER'][$key];
+    }
+
+    return '';
+}
+
+
 function logged_in(){
     if(!empty($_SESSION['USER'])){
         return true;
@@ -104,9 +130,8 @@ function str_to_url($url){
     $url = str_replace("'","",$url);
     $url = preg_replace('~[^\\pL0-9_]+~u', '-', $url);
     $url = trim($url, "-");
-    $url = iconv("utf-8","us-ascii/TRANSLIT", $url);
     $url = strtolower($url);
-    $url = preg_replace('~[^-a-z0-0_]+~', '',$url);
+    $url = preg_replace('~[^-a-z0-9]+~', '',$url);
 
     return $url;
 }

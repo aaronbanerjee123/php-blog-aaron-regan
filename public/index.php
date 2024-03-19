@@ -11,7 +11,7 @@
         //admin is url[0], then we locate it in the pages and add .php to the end 
 
     
-    $PAGE = get_pagination_vars();
+    // $PAGE = get_pagination_vars();
   
 
     if(file_exists($filename)) {

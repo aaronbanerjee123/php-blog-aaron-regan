@@ -15,7 +15,9 @@
     <!-- Custom styles for this template -->
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
   </head>
+  
   <body>
+ 
   <header class="p-3  border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -29,6 +31,7 @@
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
         </ul>
 
+       
         <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
             <div class="col-md-auto">
                 <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
@@ -37,7 +40,6 @@
                 <button type="submit" class="btn btn-primary">Find</button>
             </div>
         </form>
-
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,7 +86,7 @@
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Featured</h3>
+        <h3 class="mx-4">Blog</h3>
 
  <div class="row my-2">
   

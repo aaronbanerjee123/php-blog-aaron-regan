@@ -15,7 +15,9 @@
     <!-- Custom styles for this template -->
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
   </head>
+  
   <body>
+ 
   <header class="p-3  border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -84,29 +86,28 @@
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Featured</h3>
+        <h3 class="mx-4">Search</h3>
 
  <div class="row my-2">
   
         <?php 
+          $find = $_GET['find'] ?? null;
 
-          $query = "select * from posts join categories on posts.category_id= categories.id order by posts.id desc limit 6";
-          $rows = query($query);
+          if($find){
+            $find = "%$find%";
+            $query = "select * from posts join categories on posts.category_id= categories.id where posts.title like :find order by posts.id desc limit 6";
+            $rows = query($query, ['find'=> $find]);
+          }   
 
 
-          if($rows){
+          if(!empty($rows)){
             foreach($rows as $row){
               include '../app/pages/includes/post-card.php';
             }
           }else{
-            echo "No items found";
+             include '../app/pages/notFound.php';
           }
           
-          
-
-
- 
-
         ?>
    
 

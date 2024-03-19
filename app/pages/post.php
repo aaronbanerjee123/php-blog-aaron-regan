@@ -15,7 +15,9 @@
     <!-- Custom styles for this template -->
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
   </head>
+  
   <body>
+ 
   <header class="p-3  border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -29,6 +31,7 @@
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
         </ul>
 
+       
         <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
             <div class="col-md-auto">
                 <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
@@ -37,7 +40,6 @@
                 <button type="submit" class="btn btn-primary">Find</button>
             </div>
         </form>
-
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,29 +86,44 @@
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Featured</h3>
+        <h3 class="mx-4">Post</h3>
 
  <div class="row my-2">
   
         <?php 
+          $slug = $url[1] ?? null;
+          $row = null;
 
-          $query = "select * from posts join categories on posts.category_id= categories.id order by posts.id desc limit 6";
-          $rows = query($query);
+          if ($slug) {
+            $query = "select * from posts join categories on posts.category_id= categories.id where posts.slug=:slug limit 1";
+            $row = query_row($query,['slug'=>$slug]);
+            ?>
+            <div><?=$slug?></div>
 
+       <?php   }
+          if(!empty($row)){ ?>
 
-          if($rows){
-            foreach($rows as $row){
-              include '../app/pages/includes/post-card.php';
-            }
-          }else{
+             
+                <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary"><?=$row['category']?></strong>
+                    <h3 class="mb-0"><?=$row['title']?></h3>
+                    <div class="mb-1 text-muted"><?=date("Y-m-d",strtotime($row['date']))?></div>
+                    <p class="card-text mb-auto"><?=substr($row['content'],0,200)?></p>
+                    <a href="#" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-lg-5 col-12 d-lg-block">
+                    <img src="<?=get_image($row['image'])?>" class="bd-placeholder-img w-100"  height="250" style="object-fit:cover;" />
+                </div> 
+                </div>
+                </div>
+
+            
+     <?php     }else{
             echo "No items found";
           }
-          
-          
-
-
- 
-
+  
         ?>
    
 
