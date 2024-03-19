@@ -1,5 +1,7 @@
 <?php 
-$id = $url[1];
+    $user_image= $_SESSION['USER']['image'];
+
+ $id = $url[1] ?? '';
  $query = "select * from posts where id =:id limit 1";
  $row = query_row($query,['id' => $id]);
  if(!empty($_POST)){
@@ -61,7 +63,6 @@ $id = $url[1];
 }
 
 ?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -106,12 +107,12 @@ $id = $url[1];
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="<?=get_image($user_image)?>" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/Settings">Settings</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/logout">Sign out</a></li>
           </ul>
@@ -145,7 +146,7 @@ $id = $url[1];
       <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
     </li>
   </ol>
-</div> 
+</div>
 <div class="col-md-6 mx-auto">
                   <form method="post" enctype="multipart/form-data">
                   <a href="home">

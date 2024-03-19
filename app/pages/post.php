@@ -1,3 +1,8 @@
+<?php 
+    $user_image = $_SESSION['USER']['image'];
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -44,12 +49,12 @@
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="<?=get_image($user_image)?>" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/Settings">Settings</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/logout">Sign out</a></li>
           </ul>
@@ -95,7 +100,6 @@
           $slug = $url[1];
           $row = null;
           
-
           if ($slug) {
             $query = "select * from posts join categories on posts.category_id= categories.id where posts.slug=:slug limit 1";
             $row = query_row($query,['slug'=>$slug]);     

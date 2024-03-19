@@ -86,6 +86,13 @@ function redirect_admin_myblogs(){
 
 
 
+function redirect_settings(){
+    header('Location: http://localhost/zoots/public/settings');
+    die;
+}
+
+
+
 function old_value($key, $default = ''){
     if(!empty($_POST[$key])){
         return $_POST[$key];
@@ -263,6 +270,13 @@ function create_tables(){
         key date (date),
         key slug (slug)
     )";
+
+    $query = "create table if not exists comments(
+        comment_id int auto_increment primary key,
+        comment text
+    )";
+
+
     $stm = $con->prepare($query); 
     $stm->execute();
     }catch(PDOException $e){
