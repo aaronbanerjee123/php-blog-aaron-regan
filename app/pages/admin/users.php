@@ -311,20 +311,7 @@
 
         <?php } ?>
     <?php } ?>
-</table>
-
-<!-- <div class="col-md-12 mb-4">
-  <a href="<?=$PAGE['first_link']?>">
-    <button class="btn btn-primary">First Page</button>
-   </a>
-   <a href="<?=$PAGE['prev_link']?>">
-    <button class="btn btn-primary">Prev Page</button>
-   </a>
-   <a href="<?=$PAGE['next_link']?>">
-    <button class="btn btn-primary float-end">Next Page</button>
-   </a>
-</div> -->
-
+  </table>
 </div>
 
 <?php endif;?>

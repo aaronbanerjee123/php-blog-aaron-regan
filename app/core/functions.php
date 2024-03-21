@@ -273,10 +273,20 @@ function create_tables(){
         key slug (slug)
     )";
 
- 
+    $stm = $con->prepare($query); 
+    $stm->execute();
+
+    $query = "create table if not exists comments(
+        id int primary key auto_increment,
+        post_id int,
+        comment text null,
+        user_id int,
+        date datetime default current_timestamp
+    )";
 
     $stm = $con->prepare($query); 
     $stm->execute();
+
     }catch(PDOException $e){
         echo $e;
     }

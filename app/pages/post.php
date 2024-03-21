@@ -1,5 +1,27 @@
 <?php 
+    $slug = $url[1];
     $user_image = $_SESSION['USER']['image'];
+
+    $user_id = $_SESSION['USER']['id'];
+
+    $query = "SELECT id from posts where slug=:slug limit 1";
+    $row = query_row($query, ['slug' => $slug]);
+
+    $post_id = $row['id'];
+
+    if(!empty($_POST)){
+      $comment = $_POST['comment'];
+      $query = "INSERT into comments (comment,post_id,user_id) values (:comment, :post_id, :user_id)";
+      query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
+    }
+
+
+    // $query = "SELECT * from comments where post_id=:post_id";
+    // $new_comments = query($query,['post_id' => $post_id]);
+
+
+    // header('Content-Type: application/json');
+    // echo json_encode($new_comments);
 
 ?>
 
@@ -15,6 +37,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -99,7 +122,6 @@
  <div class="row my-2">
   
         <?php 
-          $slug = $url[1];
           $row = null;
           
           if ($slug) {
@@ -114,16 +136,91 @@
          }else{
             echo "No items found";
           }
-  
+          
+
+
         ?>
+      <form method="POST" id="comment_form">
+
+            <div class="form-group">
+              <input type="text" name="comment" id="comment" class="form-control"
+                    placeholder="Enter Comment"></textarea>
+            </div>
+
+            <button type = "submit" class="btn btn-primary">Submit</button>
+
+    </form>
+       <div id="display_comments">
+       <?php 
+          $query = "SELECT * from comments where post_id=:post_id";
+          $rows = query($query,['post_id'=>$post_id]);
+          if(!empty($rows)){
+          foreach ($rows as $row) { ?>
+            <div class="form-group">
+              <h1><?=$row['comment']?></h1>
+              <h5>Comment by <?=$row['user_id']?></h5>
+            </div>
+            <?php }
+          }?>
+      </div>
+
    
 
   </div>
-
-
-    </main>
+</main>
 
 
     <script src="<?=ROOT?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+   
+   <script>
+    function formatDateTime(date) {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+} 
+
+     $(document).ready(function() {
+      let post_id = <?php echo $post_id;?>;
+      let last_date = formatDateTime(new Date());
+        function fetchComments() {
+            $.ajax({
+              url: 'http://localhost/zoots/app/pages/check_comments.php',
+                method: 'GET', // Change the request type to GET
+                data: {
+                    post_id:post_id,
+                    last_date:last_date // Pass the post_id as a query parameter
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log('Comments fetched successfully:', response);
+            
+                    response.forEach(function(comment) {
+                    $('#display_comments').prepend('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.user_id + '</h5></div>');
+                });
+                  
+         
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error('Error fetching comments:', error);
+                }
+            });
+            last_date = formatDateTime(new Date());
+
+        }
+        // Fetch comments initially when the document is ready
+  
+        // Set interval to fetch comments every 4 seconds
+        setInterval(fetchComments, 10000); // 4000 milliseconds = 4 seconds
+    });
+     </script>
+  
+  
+  
   </body>
 </html>

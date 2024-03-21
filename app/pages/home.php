@@ -23,10 +23,6 @@
     <!-- Custom styles for this template -->
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
 
-
-
-  
-
   </head>
   <body>
   <header class="p-3  border-bottom">

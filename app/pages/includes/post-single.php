@@ -2,15 +2,6 @@
 
 <?php 
 
-$query = "select * from comments";
-$comments = query($query);
-
-if(!empty($_POST)){
-  $query = "insert into comments (comment_text) VALUES (:comment_text)";
-  query($query, ['comment_text' => $_POST['comment']]);
-
-}
-
 ?>
 
 
@@ -29,11 +20,6 @@ if(!empty($_POST)){
 
 
   <form method="POST" id="comment_form">
-    <div class="form-group">
-      <input type="text" name="comment_name" id="comment_name" class="form-control"
-             placeholder="Enter Name" />
-    </div>
-
 
     <div class="form-group">
       <textarea type="text" name="comment_content" id="comment_content" class="form-control"
@@ -41,21 +27,16 @@ if(!empty($_POST)){
     </div>
 
 
-    <div class="form-group">
-      <textarea type="submit" name="submit" id="submit" class="btn btn-info"
-             placeholder="Enter Comment"></textarea>
-    </div>
-  </form>
-  <span id="comment_message"></span>
-  <br />
-  <div id="display_comment"></div>
+      <button type="submit" name="submit" id="submit" class="btn btn-info"
+             placeholder="Enter Comment">Comment</button>
+
+</form>
+  <div id="display_comments"></div>
 </div>
 
 </div>
 </div>
 
 <script>
-  $(document).ready(function() {
-    $('#comment_form')
-  })
+  
 </script>
