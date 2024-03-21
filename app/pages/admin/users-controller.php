@@ -111,24 +111,24 @@ if($action == 'add'){
         $errors['email'] = "Not a valid email";
       }  
 
-      // $allowed = ['image/jpeg','image/png','image/webp'];
-      //     if(!empty($_FILES['image']['name'])){
+      $allowed = ['image/jpeg','image/png','image/webp'];
+          if(!empty($_FILES['image']['name'])){
           
-      //       $destination = "";
-      //       if(!in_array($_FILES['image']['type'], $allowed))
-      //       {
-      //         $errors['image'] = "Image format not supported";
-      //       }else
-      //       // "/Applications/XAMPP/xamppfiles/htdocs/PHP-Blog/public/
-      //         $folder = "uploads/";
-      //         if(!file_exists($folder))
-      //         {
-      //           mkdir($folder, 0777, true);
-      //         }
-      //         $destination = $folder .$_FILES['image']['name'];
-      //         move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-      //         // resize_image($destination);
-      //     }
+            $destination = "";
+            if(!in_array($_FILES['image']['type'], $allowed))
+            {
+              $errors['image'] = "Image format not supported";
+            }else
+            // "/Applications/XAMPP/xamppfiles/htdocs/PHP-Blog/public/
+              $folder = "uploads/";
+              if(!file_exists($folder))
+              {
+                mkdir($folder, 0777, true);
+              }
+              $destination = $folder .$_FILES['image']['name'];
+              move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+              // resize_image($destination);
+          }
 
 
       if(empty($errors)){
@@ -138,18 +138,24 @@ if($action == 'add'){
         $data['role'] = $_POST['role'];
         $data['id'] = $id;
 
-        if(empty($_POST['password'])){
+        if(empty($_POST['password']) ){
             $query = "update users set username=:username, email=:email, role=:role where id = :id limit 1";// full colons means provided later
           
         }else{
           $data['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
           $query = "update users set username=:username, email=:email, password=:password, role=:role where id = :id limit 1";// full colons means provided later 
-          // if(!empty($destination)){
-          //      $data['image'] = $destination;
-          //      $query = "update users set username=:username, email=:email, password=:password, role=:role, image=:image where id = :id limit 1";// full colons means provided later
-          //   }
+         
         }
+         if(!empty($destination) && !empty($_POST['password'])){
+               $data['image'] = $destination;
+               $query = "update users set username=:username, email=:email, password=:password, role=:role, image=:image where id = :id limit 1";// full colons means provided later
+          }
 
+          if(!empty($destination) && empty($_POST['password'])){
+            $data['image'] = $destination;
+            $query = "update users set username=:username, email=:email, role=:role, image=:image where id = :id limit 1";// full colons means provided later
+          }
+          
         query($query, $data);
         redirect_admin_users();
   
