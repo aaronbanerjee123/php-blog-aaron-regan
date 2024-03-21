@@ -19,17 +19,10 @@
 
     <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    
-    <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
-
-
-
     <style>
-    body {
+       body {
       background-color: #FFEBE7;
     }
-
     </style>
 
   </head>
@@ -37,118 +30,124 @@
 
   
 
-        <?php
-        require_once('header.php');
-        ?>
+    <?php
+    require_once('header.php');
+    ?>
 
-      <!-- slider -->
-      <!-- <link rel="stylesheet" href="<?=ROOT?>/assets/slider/ism/css/my-slider.css"/>
-      <script src="<?=ROOT?>/assets/slider/ism/js/ism-2.2.min.js"></script>
-        
+  <!--slider -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/slider/ism/css/my-slider.css"/>
+  <script src="<?=ROOT?>/assets/slider/ism/js/ism-2.2.min.js"></script>
+    
 
-    <div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
-      <ol>
-        <li>
-          <img src="<?=ROOT?>/assets/slider/ism/image/slides/flower-729514_1280.jpg">
-          <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-        </li>
-        <li>
-          <img src="<?=ROOT?>/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
-          <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-        </li>
-        <li>
-          <img src="<?=ROOT?>/assets/slider/ism/image/slides/summer-192179_1280.jpg">
-          <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-        </li>
-        <li>
-          <img src="<?=ROOT?>/assets/slider/ism/image/slides/city-690332_1280.jpg">
-          <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-        </li>
-      </ol>
-    </div> -->
-      <!-- end slider -->
+<div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
+  <ol>
+    <li>
+      <img src="<?=ROOT?>/assets/slider/ism/image/slides/flower-729514_1280.jpg">
+      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
+      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>/assets/slider/ism/image/slides/summer-192179_1280.jpg">
+      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>/assets/slider/ism/image/slides/city-690332_1280.jpg">
+      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+  </ol>
+</div>
+  <!-- end slider -->
 
-      <main class="p-2">
+    <main class="p-2">
         <h3 class="mx-4">Featured</h3>
-        <div class="row my-2" id="blogs-container">
-              <?php 
-              $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id order by posts.id desc";
-              $rows = query($query);
-                if($rows){
-                  foreach($rows as $row){
-                    include '../app/pages/includes/post-card.php';
-                  }
-                }else{
-                  echo "No items found";
-                }
-              ?>
-        </div>
-      </main>
 
-      
-        
-      <script>
+ <div class="row my-2" id="blogs-container">
+  
+        <?php 
 
-        function formatDateTime(date) {
-            let year = date.getFullYear();
-            let month = String(date.getMonth() + 1).padStart(2, '0');
-            let day = String(date.getDate()).padStart(2, '0');
-            let hours = String(date.getHours()).padStart(2, '0');
-            let minutes = String(date.getMinutes()).padStart(2, '0');
-            let seconds = String(date.getSeconds()).padStart(2, '0');
+        $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id order by posts.id desc";
+        $rows = query($query);
 
-            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        }
 
-        $(document).ready(function() {
-            // Function to fetch updates from the server
-            function checkForUpdates() {
-                $.ajax({
-                    url: '../app/pages/check_updates.php',
-                    method: 'GET',
-                    data: {
-                        last_date: last_date, // Pass the last timestamp to the server
-                  
-                    },
-                    success: function(response) {
-                        // Process the updates received from the server
-                        console.log('Updates:', response);
-
-                        response.forEach(function(blog) {
-                          
-                            $.ajax({
-                              url: '../app/pages/includes/post-card-async.php',
-                              method: 'POST',
-                              data: {
-                                    id: blog.id
-                                    
-                                },
-                                success: function(htmlResponse) {
-                                    // Prepend the HTML content generated by PHP to the blog container
-                                    $('#blogs-container').prepend(htmlResponse);
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Error fetching HTML content:', error);
-                                }
-                            });
-                        });
-
-                        // Update the last timestamp to the latest one received
-                        last_date = formatDateTime(new Date());
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
+          if($rows){
+            foreach($rows as $row){
+              include '../app/pages/includes/post-card.php';
             }
+          }else{
+            echo "No items found";
+          }
+          
+        ?>
+  </div>
+    </main>
 
-            var last_date = formatDateTime(new Date()); // Initialize last timestamp
-            var id = ''; // Initialize blog ID
-            // Call the function to check for updates every 5 seconds (adjust as needed)
-            setInterval(checkForUpdates, 5000); // 5000 milliseconds = 5 seconds
+    <script src="<?=ROOT?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+
+function formatDateTime(date) {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+$(document).ready(function() {
+    // Function to fetch updates from the server
+    function checkForUpdates() {
+        $.ajax({
+            url: '../app/pages/check_updates.php',
+            method: 'GET',
+            data: {
+                last_date: last_date, // Pass the last timestamp to the server
+          
+            },
+            success: function(response) {
+                // Process the updates received from the server
+                console.log('Updates:', response);
+
+                response.forEach(function(blog) {
+                  
+                    $.ajax({
+                       url: '../app/pages/includes/post-card-async.php',
+                      method: 'POST',
+                      data: {
+                            id: blog.id
+                            
+                        },
+                        success: function(htmlResponse) {
+                            // Prepend the HTML content generated by PHP to the blog container
+                            $('#blogs-container').prepend(htmlResponse);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching HTML content:', error);
+                        }
+                    });
+                });
+
+                // Update the last timestamp to the latest one received
+                last_date = formatDateTime(new Date());
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
         });
+    }
 
-    </script>
+    var last_date = formatDateTime(new Date()); // Initialize last timestamp
+    var id = ''; // Initialize blog ID
+    // Call the function to check for updates every 5 seconds (adjust as needed)
+    setInterval(checkForUpdates, 5000); // 5000 milliseconds = 5 seconds
+});
+
+ </script>
 
   </body>
   
