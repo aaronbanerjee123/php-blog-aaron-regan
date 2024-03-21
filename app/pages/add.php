@@ -127,7 +127,8 @@
   <!--slider -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/slider/ism/css/my-slider.css"/>
   <script src="<?=ROOT?>/assets/slider/ism/js/ism-2.2.min.js"></script>
-    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
   <ol>
@@ -213,9 +214,23 @@
           </div>
         <?php  }?> 
 
-    <button type="submit" class="btn btn-primary my-3">Submit</button>
+    <button type="submit" data-role="update" class="btn btn-primary my-3">Submit</button>
   </form>
 </div>
 
 </body>
+<script>
+$(document).ready(function() {
+  $('button[data-role=update]').on('click', function() {
+            alert('hello');
+        });
+})
+
+
+
+</script>
+
+
+
+
 </html>

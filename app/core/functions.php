@@ -5,7 +5,6 @@ function query(string $query, array $data = []){
 
     $stm = $con->prepare($query); 
     $stm->execute($data);
-
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
     if(is_array($result) && !empty($result)){
@@ -35,6 +34,8 @@ function query_row(string $query, array $data = []){
 function esc($str) {
     return htmlspecialchars($str ?? '');
 }
+
+
 
 // function redirect($page){
 //     header('Location: '.$page);
@@ -66,6 +67,7 @@ function redirect_admin_users(){
     header('Location: http://localhost/zoots/public/admin/users');
     die;
 }
+
 
 
 
@@ -271,11 +273,7 @@ function create_tables(){
         key slug (slug)
     )";
 
-    $query = "create table if not exists comments(
-        comment_id int auto_increment primary key,
-        comment text
-    )";
-
+ 
 
     $stm = $con->prepare($query); 
     $stm->execute();
