@@ -1,11 +1,9 @@
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
           <form method="post" enctype="multipart/form-data">
-          <a href="home">
-            <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-          </a>
+         
         
-          <h1 class="h3 mb-3 fw-normal">Create Category</h1>
+          <h1 class="h3 mb-3 fw-normal mt-4 text-center">Create Category</h1>
 
         <?php if(!empty($errors)){ ?>
           <div class="alert alert-danger">
@@ -37,8 +35,8 @@
 
             
           
-          <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Create</button>
-          <a href = "<?=ROOT?>/admin/categories/"><button class="mt-4 w-30 btn btn-lg btn-primary" type="button">back</button></a>
+          <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Create</button>
+          <a href = "<?=ROOT?>/admin/categories/"><button class="mt-4 w-30 btn btn-lg btn-dark" type="button">back</button></a>
         </form>
       </div>
 
@@ -136,8 +134,8 @@
                   </div>
 
                   
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/categories/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
+                  <button class="mt-4 w-30 btn btn-lg btn-dark float-end" type="submit">Save</button>
+                  <a href = "<?=ROOT?>/admin/categories/"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
               </a>
 
               <?php endif;?>
@@ -146,13 +144,11 @@
 
 
 <?php elseif($action == 'delete'):?>
-              <div class="col-md-6 mx-auto">
+              <div class="col-md-6 mx-auto text-center">
               <form method="post">
-              <a href="home">
-                <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-              </a>
+              
             
-              <h1 class="h3 mb-3 fw-normal">Delete Category</h1>
+              <h1 class="h3 mb-3 fw-normal text-center my-4">Delete Category</h1>
 
           <?php if(!empty($row)):?>
 
@@ -162,9 +158,9 @@
               </div>
             <?php  }?>
 
-              <div class="form-floating">
-                <div class="form-control mb-2">
-                <?=old_value('category',$row['category'])?>
+              <div class="form-floating text-center">
+                <div class="form-control mb-2 mx-auto" style="max-width: 200px;">
+                <h3 class= "fw-normal text-center" ><?=old_value('category',$row['category'])?></h3>
               </div>
             </div>
               
@@ -176,11 +172,11 @@
                 </div>
                 <?php }?>
 
-              <div class="form-floating">
+              <!-- <div class="form-floating">
                 <div class="form-control mb-2">
                 <?=old_value('slug',$row['slug'])?>
               </div>
-            </div>
+            </div> -->
 
               <?php if(!empty($errors['slug'])){ ?>
                 <div class="text-danger">
@@ -190,9 +186,10 @@
 
 
               
-              <button class="mt-4 w-30 btn btn-lg btn-danger float-end" type="submit" value="delete" name="deleteBtn">Delete</button>
-              <a href = "<?=ROOT?>/admin/categories/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
-          </a>
+                <div class="mt-4 text-center">
+                  <a href="<?=ROOT?>/admin/categories/"><button class="btn btn-lg btn-dark ms-2" type="button">Back</button></a> <!-- Added margin to the left -->
+                  <button class="btn btn-lg btn-danger" type="submit" value="delete" name="deleteBtn">Delete</button>
+              </div>
 
           </form>
           <?php endif;?>
@@ -203,7 +200,7 @@
 
 
 <h1>Categories Page
-    <button class="btn btn-primary"><a class="text-white" href="<?=ROOT?>/admin/categories/add">Add New</a></button>
+    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>/admin/categories/add">Add New</a></button>
 </h1>
 
 
@@ -243,7 +240,7 @@
         <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td>
      -->
     
-        <td><a class="text-white" href="<?=ROOT?>/admin/categories/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>/admin/categories/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
 
     
     </tr>
@@ -252,17 +249,7 @@
     <?php } ?>
 </table>
 
-<div class="col-md-12 mb-4">
-  <a href="<?=$PAGE['first_link']?>">
-    <button class="btn btn-primary">First Page</button>
-   </a>
-   <a href="<?=$PAGE['prev_link']?>">
-    <button class="btn btn-primary">Prev Page</button>
-   </a>
-   <a href="<?=$PAGE['next_link']?>">
-    <button class="btn btn-primary float-end">Next Page</button>
-   </a>
-</div>
+
 
 </div>
 

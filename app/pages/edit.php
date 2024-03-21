@@ -72,7 +72,7 @@
   
     <title>Home · My Blog</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+
 
     <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -81,45 +81,11 @@
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
   </head>
   <body>
-  <header class="p-3  border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-        <img class="bi me-2" src="<?=ROOT?>/assets/images/logo.jpg" width="60" height="60" style="object-fit:cover;"/>
-        </a>
+  
+  <?php
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a href="<?=ROOT?>/myblogs" class="nav-link px-2 link-dark">My Blogs</a></li>
-          <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
-          <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
-        </ul>
-
-        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
-            <div class="col-md-auto">
-                <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
-            </div>
-            <div class="col-md-auto">
-                <button type="submit" class="btn btn-primary">Find</button>
-            </div>
-        </form>
-
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="<?=get_image($user_image)?>" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/Settings">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/logout">Sign out</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+  require_once("header.php");
+  ?>
 
 
   <!--slider -->
@@ -147,13 +113,14 @@
     </li>
   </ol>
 </div>
+
+
+
 <div class="col-md-6 mx-auto">
                   <form method="post" enctype="multipart/form-data">
-                  <a href="home">
-                    <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-                  </a>
                 
-                  <h1 class="h3 mb-3 fw-normal">Edit Post</h1>
+                
+                  <h1 class="h3 mb-3 fw-normal text-center">Edit Post</h1>
 
               <?php if(!empty($row)):?>
 
@@ -166,8 +133,8 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">
-                    <input type="file" name="image" onchange="display_image_edit(this.files[0])">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
+                    <input type="file" name="image" onchange="display_image_edit(this.files[0])" class= " mt-4">
                   </label>
                 
                   <script>
@@ -227,8 +194,8 @@
 
 
                   
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
+                  <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Save</button>
+                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
               </a>
 
               <?php endif;?>

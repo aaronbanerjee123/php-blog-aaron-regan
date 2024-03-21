@@ -101,7 +101,7 @@
                 <div class="my-2">
                     Featured Image: <br>
                     <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid #7F95D1; border-radius: 10px;">
+                    <img class="mx-auto d-block image-preview-edit" src="../public/assets/images/addimage.png" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
                         <div style="text-align: center;">
                             <input onchange="display_image_edit(this.files[0])" type="file" name="image" style="margin-top: 10px;">
                         </div>
@@ -151,7 +151,7 @@
                     </div>
                 <?php endif; ?>
 
-                <button type="submit" data-role="update" class="btn btn-info my-3">Submit</button>
+                <button type="submit" data-role="update" class="btn btn-dark my-3">Submit</button>
             </div>
         </form>
     </div>
