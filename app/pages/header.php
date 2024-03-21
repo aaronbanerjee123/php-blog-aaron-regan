@@ -1,6 +1,6 @@
 <style>
-  .p-3.border-bottom {
-    background-color: #EF767A; /* Change the background color */
+  header{
+    background-color: #7F95D1; /* Change the background color */
   }
 </style>
 
