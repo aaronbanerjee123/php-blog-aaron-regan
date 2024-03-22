@@ -13,6 +13,8 @@
       $comment = $_POST['comment'];
       $query = "INSERT into comments (comment,post_id,user_id) values (:comment, :post_id, :user_id)";
       query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
+    
+    
     }
 
 
@@ -174,17 +176,15 @@
 
        <div id="display_comments"> <!--this is to display the comments -->
        <?php 
-          $query = "SELECT * from comments where post_id=:post_id";
+          $query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id=:post_id";
           $rows = query($query,['post_id'=>$post_id]);
           if(!empty($rows)){
           foreach ($rows as $row) { ?>
             
 
             <div class="form-group">
-                <div class="border border-dark rounded" style="border-width: 3px;"> <!-- Adjust the border width as needed -->
-                    <h1><?=$row['comment']?></h1>
-                    <h5>Comment by <?=$row['user_id']?></h5>
-                </div>
+              <h1><?=$row['comment']?></h1>
+              <h5>Comment by <?=$row['username']?></h5>
             </div>
             
             <?php }
@@ -192,6 +192,8 @@
           
           }?>
       </div>
+
+      <div id="newest"></div>
 
    
 
@@ -215,6 +217,10 @@
 
      $(document).ready(function() {
       let post_id = <?php echo $post_id;?>;
+      let user_id = <?php echo $user_id;?>
+
+      
+
       let last_date = formatDateTime(new Date());
         function fetchComments() {
             $.ajax({
@@ -222,14 +228,18 @@
                 method: 'GET', // Change the request type to GET
                 data: {
                     post_id:post_id,
-                    last_date:last_date // Pass the post_id as a query parameter
+                    last_date:last_date,
+                    user_id:user_id
+                    // Pass the post_id as a query parameter
                 },
                 success: function(response) {
                     // Handle success response
                     console.log('Comments fetched successfully:', response);
             
                     response.forEach(function(comment) {
-                    $('#display_comments').prepend('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.user_id + '</h5></div>');
+                  
+                      
+                    $('#newest').append('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.username + '</h5></div>');
                 });
                   
          
