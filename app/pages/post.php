@@ -14,7 +14,6 @@
       $query = "INSERT into comments (comment,post_id,user_id) values (:comment, :post_id, :user_id)";
       query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
     
-    
     }
 
  

@@ -95,13 +95,12 @@
         <h3 class="mx-4">Search</h3>
 
  <div class="row my-2">
-  
         <?php 
           $find = $_GET['find'] ?? null;
 
           if($find){
             $find = "%$find%";
-            $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id where posts.title like :find order by posts.id desc limit 6";
+            $query = "select posts.*, categories.category from posts join categories on posts.category_id= categories.id join users on posts.user_id = users.id where posts.title like :find or categories.category like :find or users.username like :find order by posts.id desc limit 6";
             $rows = query($query, ['find'=> $find]);
           }   
 

@@ -38,6 +38,28 @@
 
   echo $_POST['password']."<br>". $_POST['retype_password'];
 
+
+  $allowed = ['image/jpeg','image/png','image/webp'];
+          if(!empty($_FILES['image']['name'])){
+          
+            $destination = "";
+            if(!in_array($_FILES['image']['type'], $allowed))
+            {
+              $errors['image'] = "Image format not supported";
+            }else
+            // "/Applications/XAMPP/xamppfiles/htdocs/PHP-Blog/public/
+              $folder = "uploads/";
+              if(!file_exists($folder))
+              {
+                mkdir($folder, 0777, true);
+              }
+              $destination = $folder .$_FILES['image']['name'];
+              move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+              // resize_image($destination);
+              
+              // resize_image($destination);
+          }
+
     if(empty($errors)){
       $data = [];
       $data['username'] = $_POST['username'];
@@ -47,10 +69,16 @@
 
      
       $query = "insert into users (username,email,password,role) values (:username,:email,:password,:role)";// full colons means provided later
+    
+      if(!empty($destination))
+      {
+        $data['image'] = $destination;
+        $query = "insert into users (username,email,password,role,image) values (:username,:email,:password,:role,:image)";
+      }
+      
+
       query($query, $data);
-
       redirect_login();
-
 
       
     }
@@ -134,7 +162,7 @@
   <body class="text-center">
     
 <main class="form-signin w-100 m-auto">
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <a href="home">
       <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
     </a>
@@ -146,6 +174,26 @@
       Please fix the errors below
     </div>
   <?php  }?>
+
+
+
+
+       <div class="my-2">
+                  <label class="d-block">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
+                    <input onchange="display_image_edit(this.files[0])" type="file" name="image">
+                 </label>
+
+             
+         
+                  <script>
+                      function display_image_edit(file){
+                        document.querySelector(".image-preview-edit").src=URL.createObjectURL(file); 
+                      }
+
+                  </script>
+            </div>
+
 
     <div class="form-floating">
       <input value="<?php echo old_value('username')?>" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
