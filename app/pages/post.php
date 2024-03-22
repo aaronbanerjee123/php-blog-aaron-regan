@@ -17,13 +17,7 @@
     
     }
 
-
-    // $query = "SELECT * from comments where post_id=:post_id";
-    // $new_comments = query($query,['post_id' => $post_id]);
-
-
-    // header('Content-Type: application/json');
-    // echo json_encode($new_comments);
+ 
 
 ?>
 
