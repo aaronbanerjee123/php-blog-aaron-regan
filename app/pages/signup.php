@@ -1,214 +1,155 @@
 <?php
-  if(!empty($_POST)){
-    $errors = [];
+$errors = [];
 
+if (!empty($_POST)) {
+    // Your PHP form validation and submission logic here
 
-    if(empty($_POST['username'])){
-      $errors['username'] = "A username is required";
-    }else if(!preg_match("/^[a-zA-Z]+$/", $_POST['username'])){
+    if (empty($_POST['username'])) {
+        $errors['username'] = "A username is required";
+    } else if (!preg_match("/^[a-zA-Z]+$/", $_POST['username'])) {
         $errors['username'] = "A username has to be just letters";
     }
-  
 
-    if(empty($_POST['password'])){
-      $errors['password'] = 'A password is required';
-    }else if(strlen($_POST['password']) < 8){
-      $errors['password'] = "Password needs to be 8 or more characters";
-    }else if($_POST['password'] !== $_POST['retype_password']){
-      $errors['password'] = "Passwords do not match";
+    if (empty($_POST['password'])) {
+        $errors['password'] = 'A password is required';
+    } else if (strlen($_POST['password']) < 8) {
+        $errors['password'] = "Password needs to be 8 or more characters";
+    } else if ($_POST['password'] !== $_POST['retype_password']) {
+        $errors['password'] = "Passwords do not match";
     }
 
+    $query = "SELECT id FROM users WHERE email = :email LIMIT 1";
+    $email = query($query, ['email' => $_POST['email']]);
 
-    $query = "select id from users where email = :email limit 1";// full colons means provided later
-    $email = query($query, ['email'=>$_POST['email']]); // could use $_POST['email'] if i did email = ? in query
-    // to query for info you just type query function, but you must use prepared statements when configuring things in the database like in functions page
-
-    if(empty($_POST['email'])){
-      $errors['email'] = 'A email is required';
-    }else if($email){
+    if (empty($_POST['email'])) {
+        $errors['email'] = 'An email is required';
+    } else if ($email) {
         $errors['email'] = "That email is already in use";
-    }else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-      $errors['email'] = "Not a valid email";
-
+    } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Not a valid email";
     }
 
-  if(empty($_POST['terms'])){
-    $errors['terms'] = 'Please Accept the Terms';
-  }
-
-  echo $_POST['password']."<br>". $_POST['retype_password'];
-
-    if(empty($errors)){
-      $data = [];
-      $data['username'] = $_POST['username'];
-      $data['email'] = $_POST['email'];
-      $data['role'] = 'user';
-      $data['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-
-     
-      $query = "insert into users (username,email,password,role) values (:username,:email,:password,:role)";// full colons means provided later
-      query($query, $data);
-
-      redirect_login();
-
-
-      
+    if (empty($_POST['terms'])) {
+        $errors['terms'] = 'Please accept the terms';
     }
-  }
 
+    if (empty($errors)) {
+        $data = [];
+        $data['username'] = $_POST['username'];
+        $data['email'] = $_POST['email'];
+        $data['role'] = 'user';
+        $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)";
+        query($query, $data);
+
+        redirect_login();
+    }
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-   
-    <title>Signin Template · Bootstrap v5.2</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-    
-
-<link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>InsightInk - Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        body {
+            background-color: #FFEBE7;
         }
-      }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+        .container {
+            margin-top: 5rem;
+        }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+        .form-control {
+            border-radius: 0.5rem;
+        }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+        .btn {
+            border-radius: 0.5rem;
+        }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
+        .text-danger {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+
+        .text-muted {
+            color: #6c757d;
+            font-size: 0.875rem;
+            margin-top: 10px;
+        }
+
+        .text-center a {
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            text-decoration: none;
+        }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>/assets/css/signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    
-<main class="form-signin w-100 m-auto">
-  <form method="post">
-    <a href="home">
-      <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-    </a>
-   
-    <h1 class="h3 mb-3 fw-normal">Create account</h1>
-
-  <?php if(!empty($errors)){ ?>
-    <div class="alert alert-danger">
-      Please fix the errors below
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center"><a href="<?= ROOT ?>/home">InsightInk</a></h1>
+    <h2 class="text-center">Create an Account</h2>
+    <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger">
+            Please fix the errors below
+        </div>
+    <?php endif; ?>
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+                   value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
+            <?php if (!empty($errors['username'])): ?>
+                <small class="text-danger"><?php echo $errors['username']; ?></small>
+            <?php endif; ?>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
+                   value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+            <?php if (!empty($errors['email'])): ?>
+                <small class="text-danger"><?php echo $errors['email']; ?></small>
+            <?php endif; ?>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <?php if (!empty($errors['password'])): ?>
+                <small class="text-danger"><?php echo $errors['password']; ?></small>
+            <?php endif; ?>
+        </div>
+        <div class="form-group">
+            <label for="retype_password">Retype Password</label>
+            <input type="password" class="form-control" id="retype_password" name="retype_password"
+                   placeholder="Retype Password">
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="terms" id="terms"
+                   value="accept" <?php echo isset($_POST['terms']) ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="terms">
+                Accept terms and conditions
+            </label>
+            <?php if (!empty($errors['terms'])): ?>
+                <small class="text-danger"><?php echo $errors['terms']; ?></small>
+            <?php endif; ?>
+        </div>
+        <button type="submit" class="btn btn-info btn-block">register</button>
+    </form>
+    <div class="mt-3 text-center">
+        Already have an account? <a href="<?= ROOT ?>/login">Login here</a>
     </div>
-  <?php  }?>
-
-    <div class="form-floating">
-      <input value="<?php echo old_value('username')?>" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
-      <label for="floatingInput">Username</label>
-    </div>
-
-    <?php if(!empty($errors['username'])){ ?>
-      <div class="text-danger">
-          <?php echo $errors['username'];?>
-      </div>
-      <?php }?>
-
-
-    <div class="form-floating">
-      <input value="<?php echo old_value('email')?>" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
-    </div>
-
-    <?php if(!empty($errors['email'])){ ?>
-      <div class="text-danger">
-          <?php echo $errors['email'];?>
-      </div>
-      <?php }?>
-
-    <div class="form-floating">
-      <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
-
-    <?php if(!empty($errors['password'])){ ?>
-      <div class="text-danger">
-          <?php echo $errors['password'];?>
-      </div>
-      <?php }?>
-
-
-    <div class="form-floating">
-      <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
-      <label for="floatingPassword">Retype Password</label>
-    </div>
-
-    <div class="my-2">
-      Already have an account? <a href="<?=ROOT?>/login">Login here</a>
-    </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input <?php echo old_checked('terms')?> name="terms" type="checkbox" value="remember-me"> Accept terms and conditions
-      </label>
-    </div>
-
-    <?php if(!empty($errors['terms'])){ ?>
-      <div class="text-danger">
-          <?php echo $errors['terms'];?>
-      </div>
-      <?php }?>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Create</button>
-    <p class="mt-5 mb-3 text-muted">&copy; <?= date("Y")?></p>
-  </form>
-</main>
-
-
-    
-  </body>
-</html>
+</div
