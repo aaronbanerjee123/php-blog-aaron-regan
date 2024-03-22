@@ -140,27 +140,56 @@
 
 
         ?>
-      <form method="POST" id="comment_form">
 
-            <div class="form-group">
-              <input type="text" name="comment" id="comment" class="form-control"
-                    placeholder="Enter Comment"></textarea>
-            </div>
+    <form method="POST" id="comment_form"> <!-- this is the form to post comments-->
+    
+      <!-- <div class="form-row align-items-center">
+          <div class="col-auto">
+              <div class="form-group">
+                  <input type="text" name="comment" id="comment" class="form-control form-control-sm" placeholder="Enter Comment">
+              </div>
+          </div>
+          <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+      </div> -->
+                <div class="container mt-5">
+              <div class="row">
+                  <div class="col-md-8 offset-md-2"> <!-- Adjusted column width -->
+                      <form method="POST" id="comment_form" class="form-inline">
+                          <div class="form-group">
+                              <label for="commentInput" class="mr-2">Comments</label>
+                              <input type="text" name="comment" id="comment" class="form-control" style="width: 100%;" placeholder="Enter Comment"> <!-- Adjusted input width -->
+                          </div>
+                          <button type="submit" class="btn btn-dark mt-2">Submit</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
 
-            <button type = "submit" class="btn btn-primary">Submit</button>
 
     </form>
-       <div id="display_comments">
+
+    
+
+       <div id="display_comments"> <!--this is to display the comments -->
        <?php 
           $query = "SELECT * from comments where post_id=:post_id";
           $rows = query($query,['post_id'=>$post_id]);
           if(!empty($rows)){
           foreach ($rows as $row) { ?>
+            
+
             <div class="form-group">
-              <h1><?=$row['comment']?></h1>
-              <h5>Comment by <?=$row['user_id']?></h5>
+                <div class="border border-dark rounded" style="border-width: 3px;"> <!-- Adjust the border width as needed -->
+                    <h1><?=$row['comment']?></h1>
+                    <h5>Comment by <?=$row['user_id']?></h5>
+                </div>
             </div>
+            
             <?php }
+          
+          
           }?>
       </div>
 
