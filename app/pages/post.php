@@ -123,7 +123,7 @@
       </div> -->
                 <div class="container mt-5">
               <div class="row">
-                  <div class="col-md-8 offset-md-2"> <!-- Adjusted column width -->
+                  <div class="col-md-8 offset-md-2"> 
                       <form method="POST" id="comment_form" class="form-inline">
                           <div class="form-group">
                               <label for="commentInput" class="mr-2">Comments</label>
@@ -138,26 +138,26 @@
 
     </form>
 
-    
+    <div id="display_comments" class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- This is to display the comments -->
+            <?php 
+            $query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id=:post_id";
+            $rows = query($query,['post_id'=>$post_id]);
+            if(!empty($rows)){
+                foreach ($rows as $row) { ?>
+                    <div class="form-group m-1" style= "border: 2px solid gray;  border-radius: 4px">
+                        
+                        <h7 style = "color: gray">@<?=$row['username']?></h7>
+                        <h6 ><?=$row['comment']?></h6>
+                    </div>
+                <?php }
+            }?>
+        </div>
+    </div>
+</div>
 
-       <div id="display_comments"> <!--this is to display the comments -->
-       <?php 
-          $query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id=:post_id";
-          $rows = query($query,['post_id'=>$post_id]);
-          if(!empty($rows)){
-          foreach ($rows as $row) { ?>
-            
-
-            <div class="form-group">
-              <h1><?=$row['comment']?></h1>
-              <h5>Comment by <?=$row['username']?></h5>
-            </div>
-            
-            <?php }
-          
-          
-          }?>
-      </div>
 
       <div id="newest"></div>
 

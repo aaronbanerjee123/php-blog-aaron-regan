@@ -2,7 +2,7 @@
     $row = $_SESSION['USER']; 
     $id = $_SESSION['USER']['id'];
     $user_image = $_SESSION['USER']['image'];
-    print_r($_SESSION['USER']);
+  
     echo $id;
     if(!empty($_POST)){
         if($row){
@@ -78,7 +78,7 @@
         }
           
          
-         print_r($data);
+     
         
   
           query($query, $data);
@@ -113,79 +113,18 @@
     <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
   </head>
   <body>
-  <header class="p-3  border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-        <img class="bi me-2" src="<?=ROOT?>/assets/images/logo.jpg" width="60" height="60" style="object-fit:cover;"/>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a href="<?=ROOT?>/myblogs" class="nav-link px-2 link-dark">My Blogs</a></li>
-          <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
-          <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
-        </ul>
-
-        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
-            <div class="col-md-auto">
-                <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
-            </div>
-            <div class="col-md-auto">
-                <button type="submit" class="btn btn-primary">Find</button>
-            </div>
-        </form>
+  
+  <?php
+  require_once("header.php")
+  ?>
 
 
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="<?=get_image($user_image)?>" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/Settings">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/logout">Sign out</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
 
-
-  <!--slider -->
-  <link rel="stylesheet" href="<?=ROOT?>/assets/slider/ism/css/my-slider.css"/>
-  <script src="<?=ROOT?>/assets/slider/ism/js/ism-2.2.min.js"></script>
-    
-
-<div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
-  <ol>
-    <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/flower-729514_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/summer-192179_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/city-690332_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-  </ol>
-</div>
 <div class="col-md-6 mx-auto">
                   <form method="post" enctype="multipart/form-data">
-                  <a href="home">
-                    <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-                  </a>
+              
                 
-                  <h1 class="h3 mb-3 fw-normal">Edit account</h1>
+                  <h1 class="h3 mb-3 fw-normal text-center">Edit account</h1>
 
               <?php if(!empty($row)):?>
 
@@ -198,8 +137,8 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="" style="cursor:pointer;width:150px;height:150px;object-fit:cover;"></div>
-                    <input type="file" name="image" onchange="display_image_edit(this.files[0])">
+                    <img class="mx-auto d-block image-preview-edit mb-4" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;"></div>
+                    <input type="file" name="image" onchange="display_image_edit(this.files[0])" class= "mb-4 ">
                   </label>
                 
                   <script>
@@ -210,8 +149,8 @@
                 </div>
 
 
-                  <div class="form-floating">
-                    <input value="" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
+                <div class="form-floating">
+                    <input value="<?php echo old_value('username',$row['username'])?>" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
                     <label for="floatingInput">Username</label>
                   </div>
 
@@ -221,15 +160,9 @@
                     </div>
                     <?php }?>
 
-
-          <div class="form-floating my-3">
-            <select name="role" class="form-select">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-            <label for="form-select">Role</label>
+                    <div class="form-floating my-3">
+           
           </div>
-
             
           <?php if(!empty($errors['role'])){ ?>
             <div class="text-danger">
@@ -238,8 +171,8 @@
             <?php }?>
 
 
-                  <div class="form-floating">
-                    <input value="<?=old_value($row['email'])?>" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <div class="form-floating my-3">
+                    <input value="<?php echo old_value('email',$row['email'])?>" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                   </div>
 
@@ -249,8 +182,8 @@
                     </div>
                     <?php }?>
 
-                  <div class="form-floating">
-                    <input  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <div class="form-floating my-3">
+                    <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                   </div>
 
@@ -262,14 +195,13 @@
 
 
                   <div class="form-floating">
-                    <input name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
+                    <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
                     <label for="floatingPassword">Retype Password</label>
                   </div>
 
-                  
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
-              </a>
+                  <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">save</button>
+                  <a href="<?=ROOT?>/home"><button class="mt-4 w-30 btn btn-lg btn-dark" type="button">back</button></a>
+
 
               <?php endif;?>
               </form>

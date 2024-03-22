@@ -3,7 +3,7 @@
     redirect_login();
   }
     $user_image= $_SESSION['USER']['image'];
-    print_r($user_image);
+
   
 ?>
 
