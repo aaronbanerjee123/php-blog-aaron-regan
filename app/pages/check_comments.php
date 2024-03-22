@@ -5,7 +5,8 @@ $post_id = $_GET['post_id'];
 $last_date =$_GET['last_date'];
 
 
-$query = "SELECT * from comments where post_id = :post_id and date>:date";
+
+$query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id = :post_id and comments.date>:date";
 $new_posts = query($query,['post_id'=>$post_id,'date'=>$last_date]);
 
 
