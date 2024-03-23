@@ -1,11 +1,3 @@
-<?php 
-  if(!logged_in()){
-    redirect_login();
-  }
-    $user_image= $_SESSION['USER']['image'];
-
-  
-?>
 
 
 <!doctype html>

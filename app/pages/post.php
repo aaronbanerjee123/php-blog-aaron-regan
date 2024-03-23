@@ -1,6 +1,5 @@
 <?php 
     $slug = $url[1];
-    $user_image = $_SESSION['USER']['image'];
 
     $user_id = $_SESSION['USER']['id'];
 
@@ -198,7 +197,7 @@
                     response.forEach(function(comment) {
                   
                       
-                    $('#newest').append('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.username + '</h5></div>');
+                    $('#newest').append('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.username + '</h5></div>'); //make these comments look better
                 });
                   
          

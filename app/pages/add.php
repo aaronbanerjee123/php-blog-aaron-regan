@@ -1,4 +1,8 @@
 <?php 
+    if(!$_SESSION['USER']){
+        redirect_login();
+    }
+    
     $query = "select * from categories";
     $rows = query($query, []);
     $user_image = $_SESSION['USER']['image'];
