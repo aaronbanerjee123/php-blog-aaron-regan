@@ -62,14 +62,14 @@
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Featured</h3>
+        <h3 class="mx-4">My Blogs</h3>
 
       <?php if($rows): ?>
                   <div class="row">
                       <?php foreach($rows as $row): ?>
-                          <div class="col-md-6">
+              
                               <?php include '../app/pages/includes/post-card.php'; ?>
-                          </div>
+                
                       <?php endforeach; ?>
                   </div>
               <?php else: ?>

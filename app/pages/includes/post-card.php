@@ -13,7 +13,7 @@
         </div>
         <!-- Edit Button -->
         <?php if($row['user_id'] == user('id')) { ?>
-            <a href="<?=ROOT?>/edit/<?=$row['id']?>" class="btn btn-sm btn-primary position-absolute bottom-0 start-0 m-2 my-3" style="width:20%;">Edit</a>
+            <a href="<?=ROOT?>/edit/<?=$row['id']?>" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 mt-5" style="width:20%;">Edit</a>
           <?php } ?>
 
         </div>

@@ -51,7 +51,7 @@ function redirect_login(){
 
 
 function redirect_home(){
-    header('Location: http://localhost/blog/public/');
+    header('Location: http://localhost/blog/public/index.php');
 
 
     die;
