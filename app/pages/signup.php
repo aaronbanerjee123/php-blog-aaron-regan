@@ -1,37 +1,40 @@
 <?php
-$errors = [];
+  if(!empty($_POST)){
+    $errors = [];
 
-if (!empty($_POST)) {
-    // Your PHP form validation and submission logic here
 
-    if (empty($_POST['username'])) {
-        $errors['username'] = "A username is required";
-    } else if (!preg_match("/^[a-zA-Z]+$/", $_POST['username'])) {
+    if(empty($_POST['username'])){
+      $errors['username'] = "A username is required";
+    }else if(!preg_match("/^[a-zA-Z]+$/", $_POST['username'])){
         $errors['username'] = "A username has to be just letters";
     }
+  
 
-    if (empty($_POST['password'])) {
-        $errors['password'] = 'A password is required';
-    } else if (strlen($_POST['password']) < 8) {
-        $errors['password'] = "Password needs to be 8 or more characters";
-    } else if ($_POST['password'] !== $_POST['retype_password']) {
-        $errors['password'] = "Passwords do not match";
+    if(empty($_POST['password'])){
+      $errors['password'] = 'A password is required';
+    }else if(strlen($_POST['password']) < 8){
+      $errors['password'] = "Password needs to be 8 or more characters";
+    }else if($_POST['password'] !== $_POST['retype_password']){
+      $errors['password'] = "Passwords do not match";
     }
 
-    $query = "SELECT id FROM users WHERE email = :email LIMIT 1";
-    $email = query($query, ['email' => $_POST['email']]);
 
-    if (empty($_POST['email'])) {
-        $errors['email'] = 'An email is required';
-    } else if ($email) {
+    $query = "select id from users where email = :email limit 1";// full colons means provided later
+    $email = query($query, ['email'=>$_POST['email']]); // could use $_POST['email'] if i did email = ? in query
+    // to query for info you just type query function, but you must use prepared statements when configuring things in the database like in functions page
+
+    if(empty($_POST['email'])){
+      $errors['email'] = 'A email is required';
+    }else if($email){
         $errors['email'] = "That email is already in use";
-    } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Not a valid email";
+    }else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+      $errors['email'] = "Not a valid email";
+
     }
 
-    if (empty($_POST['terms'])) {
-        $errors['terms'] = 'Please accept the terms';
-    }
+  if(empty($_POST['terms'])){
+    $errors['terms'] = 'Please Accept the Terms';
+  }
 
   echo $_POST['password']."<br>". $_POST['retype_password'];
 
@@ -79,58 +82,77 @@ if (!empty($_POST)) {
 
       
     }
-}
+  }
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>InsightInk - Register</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   
+    <title>Signin Template · Bootstrap v5.2</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+    
+
+<link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #FFEBE7;
-        }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
 
-        .container {
-            margin-top: 5rem;
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
+      }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
 
-        .form-control {
-            border-radius: 0.5rem;
-        }
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
 
-        .btn {
-            border-radius: 0.5rem;
-        }
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
 
-        .text-danger {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 5px;
-        }
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
 
-        .text-muted {
-            color: #6c757d;
-            font-size: 0.875rem;
-            margin-top: 10px;
-        }
-
-        .text-center a {
-            text-decoration: none;
-        }
-
-        .text-center a:hover {
-            text-decoration: none;
-        }
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
     </style>
 
     
@@ -140,10 +162,8 @@ if (!empty($_POST)) {
   <body class="text-center">
     
 <main class="form-signin w-100 m-auto">
-  <form method="post">
-    <a href="home">
-      <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-    </a>
+  <form method="post" enctype="multipart/form-data">
+   
    
     <h1 class="h3 mb-3 fw-normal">Create account</h1>
 
@@ -152,6 +172,26 @@ if (!empty($_POST)) {
       Please fix the errors below
     </div>
   <?php  }?>
+
+
+
+
+       <div class="my-2">
+                  <label class="d-block">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 2px solid gray;  border-radius: 4px">                  </div>
+                    <input onchange="display_image_edit(this.files[0])" type="file" name="image">
+                 </label>
+
+             
+         
+                  <script>
+                      function display_image_edit(file){
+                        document.querySelector(".image-preview-edit").src=URL.createObjectURL(file); 
+                      }
+
+                  </script>
+            </div>
+
 
     <div class="form-floating">
       <input value="<?php echo old_value('username')?>" name="username" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
@@ -192,4 +232,29 @@ if (!empty($_POST)) {
       <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
       <label for="floatingPassword">Retype Password</label>
     </div>
-</div
+
+    <div class="my-2">
+      Already have an account? <a href="<?=ROOT?>/login">Login here</a>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input <?php echo old_checked('terms')?> name="terms" type="checkbox" value="remember-me"> Accept terms and conditions
+      </label>
+    </div>
+
+    <?php if(!empty($errors['terms'])){ ?>
+      <div class="text-danger">
+          <?php echo $errors['terms'];?>
+      </div>
+      <?php }?>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Create</button>
+    <p class="mt-5 mb-3 text-muted">&copy; <?= date("Y")?></p>
+  </form>
+</main>
+
+
+    
+  </body>
+</html>
