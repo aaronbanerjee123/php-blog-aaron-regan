@@ -19,19 +19,8 @@
 
 
 
-  <form method="POST" id="comment_form">
 
-    <div class="form-group">
-      <textarea type="text" name="comment_content" id="comment_content" class="form-control"
-             placeholder="Enter Comment"></textarea>
-    </div>
-
-
-      <button type="submit" name="submit" id="submit" class="btn btn-info"
-             placeholder="Enter Comment">Comment</button>
-
-</form>
-  <div id="display_comments"></div>
+   
 </div>
 
 </div>

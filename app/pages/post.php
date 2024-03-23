@@ -31,6 +31,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -42,46 +43,11 @@
   </head>
   
   <body>
+    <?php
+      require_once("header.php");
+    ?>
  
-  <header class="p-3  border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-        <img class="bi me-2" src="<?=ROOT?>/assets/images/logo.jpg" width="60" height="60" style="object-fit:cover;"/>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="<?=ROOT?>" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a href="<?=ROOT?>/myblogs" class="nav-link px-2 link-dark">My Blogs</a></li>
-          <li><a href="<?=ROOT?>/contact" class="nav-link px-2 link-dark">Contact</a></li>
-          <li><a href="<?=ROOT?>/add" class="nav-link px-2 link-dark">Add Blog</a></li>
-        </ul>
-
-       
-        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/search">
-            <div class="col-md-auto">
-                <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
-            </div>
-            <div class="col-md-auto">
-                <button type="submit" class="btn btn-primary">Find</button>
-            </div>
-        </form>
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="<?=get_image($user_image)?>" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/Settings">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>/logout">Sign out</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+  
 
 
   <!--slider -->
@@ -135,29 +101,56 @@
 
 
         ?>
-      <form method="POST" id="comment_form">
 
-            <div class="form-group">
-              <input type="text" name="comment" id="comment" class="form-control"
-                    placeholder="Enter Comment"></textarea>
-            </div>
+    <form method="POST" id="comment_form"> <!-- this is the form to post comments-->
+    
+      <!-- <div class="form-row align-items-center">
+          <div class="col-auto">
+              <div class="form-group">
+                  <input type="text" name="comment" id="comment" class="form-control form-control-sm" placeholder="Enter Comment">
+              </div>
+          </div>
+          <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+      </div> -->
+                <div class="container mt-5">
+              <div class="row">
+                  <div class="col-md-8 offset-md-2"> 
+                      <form method="POST" id="comment_form" class="form-inline">
+                          <div class="form-group">
+                              <label for="commentInput" class="mr-2">Comments</label>
+                              <input type="text" name="comment" id="comment" class="form-control" style="width: 100%;" placeholder="Enter Comment"> <!-- Adjusted input width -->
+                          </div>
+                          <button type="submit" class="btn btn-dark mt-2">Submit</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
 
-            <button type = "submit" class="btn btn-primary">Submit</button>
 
     </form>
-       <div id="display_comments">
-       <?php 
-          $query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id=:post_id";
-          $rows = query($query,['post_id'=>$post_id]);
-          if(!empty($rows)){
-          foreach ($rows as $row) { ?>
-            <div class="form-group">
-              <h1><?=$row['comment']?></h1>
-              <h5>Comment by <?=$row['username']?></h5>
-            </div>
-            <?php }
-          }?>
-      </div>
+
+    <div id="display_comments" class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- This is to display the comments -->
+            <?php 
+            $query = "SELECT comments.*, users.username from comments join users on comments.user_id = users.id where post_id=:post_id";
+            $rows = query($query,['post_id'=>$post_id]);
+            if(!empty($rows)){
+                foreach ($rows as $row) { ?>
+                    <div class="form-group m-1" style= "border: 2px solid gray;  border-radius: 4px">
+                        
+                        <h7 style = "color: gray">@<?=$row['username']?></h7>
+                        <h6 ><?=$row['comment']?></h6>
+                    </div>
+                <?php }
+            }?>
+        </div>
+    </div>
+</div>
+
 
       <div id="newest"></div>
 
