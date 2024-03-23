@@ -43,7 +43,7 @@ function esc($str) {
 // }
 
 function redirect_login(){
-    header('Location: http://localhost/zoots/public/login/');
+    header('Location: http://localhost/blog/public/login/');
 
 
     die;
@@ -51,7 +51,7 @@ function redirect_login(){
 
 
 function redirect_home(){
-    header('Location: http://localhost/zoots/public/');
+    header('Location: http://localhost/blog/public/');
 
 
     die;
@@ -59,12 +59,12 @@ function redirect_home(){
 
 
 function redirect_admin(){
-    header('Location: http://localhost/zoots/public/admin/');
+    header('Location: http://localhost/blog/public/admin/');
     die;
 }
 
 function redirect_admin_users(){
-    header('Location: http://localhost/zoots/public/admin/users');
+    header('Location: http://localhost/blog/public/admin/users');
     die;
 }
 
@@ -72,24 +72,24 @@ function redirect_admin_users(){
 
 
 function redirect_admin_categories(){
-    header('Location: http://localhost/zoots/public/admin/categories');
+    header('Location: http://localhost/blog/public/admin/categories');
     die;
 }
 
 function redirect_admin_posts(){
-    header('Location: http://localhost/zoots/public/admin/posts');
+    header('Location: http://localhost/blog/public/admin/posts');
     die;
 }
 
 function redirect_admin_myblogs(){
-    header('Location: http://localhost/zoots/public/myblogs');
+    header('Location: http://localhost/blog/public/myblogs');
     die;
 }
 
 
 
 function redirect_settings(){
-    header('Location: http://localhost/zoots/public/settings');
+    header('Location: http://localhost/blog/public/settings');
     die;
 }
 
