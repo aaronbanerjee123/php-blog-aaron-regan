@@ -1,11 +1,9 @@
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
           <form method="post" enctype="multipart/form-data">
-          <a href="home">
-            <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-          </a>
+          
         
-          <h1 class="h3 mb-3 fw-normal">Create Post</h1>
+          <h1 class="h3 mb-3 fw-normal text-center">Create Post</h1>
 
         <?php if(!empty($errors)){ ?>
           <div class="alert alert-danger">
@@ -13,12 +11,12 @@
           </div>
         <?php  }?>
 
-          <div class="my-2">
+          <div class="my-2 text-center">
                 Featured Image: <br>
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
                   </div>
-                    <input onchange="display_image_edit(this.files[0])" type="file" name="image">
+                  <input onchange="display_image_edit(this.files[0])" type="file" name="image" class=" m-4">
                  </label>
 
              
@@ -45,7 +43,7 @@
 
 
                   <div>
-                    <textarea rows="4" name="content" value="<?=old_value('content')?>" id="floatingInput" placeholder="content" style="width:100%;"></textarea>
+                    <textarea rows="4" name="content" value="<?=old_value('content')?>" id="floatingInput" placeholder="content" style="width:100%;" class="form-control mb-2"></textarea>
                   </div>
 
                   <?php if(!empty($errors['content'])){ ?>
@@ -77,8 +75,8 @@
     
 
                   
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
+                  <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Save</button>
+                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
               </a>
                   </form>
         </div>
@@ -87,12 +85,10 @@
 <?php elseif($action == 'edit'):?>
 
                   <div class="col-md-6 mx-auto">
-                  <form method="post" enctype="multipart/form-data">
-                  <a href="home">
-                    <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-                  </a>
+                  <form method="post" enctype="multipart/form-data my-4">
+                  
                 
-                  <h1 class="h3 mb-3 fw-normal">Edit Post</h1>
+                  <h1 class="h3 mb-3 fw-normal text-center my-4">Edit Post</h1>
 
               <?php if(!empty($row)):?>
 
@@ -105,8 +101,8 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">
-                    <input type="file" name="image" onchange="display_image_edit(this.files[0])">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
+                    <input type="file" name="image" onchange="display_image_edit(this.files[0])" class= "my-4">
                   </label>
                 
                   <script>
@@ -166,8 +162,8 @@
 
 
                   
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
+                  <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Save</button>
+                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-dark" type="button">back</button>
               </a>
 
               <?php endif;?>
@@ -178,11 +174,9 @@
 <?php elseif($action == 'delete'):?>
               <div class="col-md-6 mx-auto">
               <form method="post">
-              <a href="home">
-                <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-              </a>
+              
             
-              <h1 class="h3 mb-3 fw-normal">Delete Post</h1>
+              <h1 class="h3 mb-3 fw-normal text-center my-4">Delete Post</h1>
 
           <?php if(!empty($row)):?>
 
@@ -192,11 +186,12 @@
               </div>
             <?php  }?>
 
-              <div class="form-floating">
-                <div class="form-control mb-2">
-                <?=old_value('title',$row['title'])?>
-              </div>
+            <div class="form-floating">
+                <div class="form-control mx-auto mb-2 text-center" style="max-width: 200px;"> <!-- Adjust the max-width as needed -->
+                    <?=old_value('title',$row['title'])?>
+                </div>
             </div>
+
               
               </div>
 
@@ -208,11 +203,11 @@
 
 
 
-              <div class="form-floating">
+              <!-- <div class="form-floating">
                 <div class="form-control mb-2">
                 <?=old_value('slug',$row['slug'])?>
               </div>
-            </div>
+            </div> -->
 
               <?php if(!empty($errors['slug'])){ ?>
                 <div class="text-danger">
@@ -222,9 +217,14 @@
 
 
               
-              <button class="mt-4 w-30 btn btn-lg btn-danger float-end" type="submit" value="delete" name="deleteBtn">Delete</button>
-              <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
-          </a>
+                <div class="mt-4 text-center">
+                    <a href="<?=ROOT?>/admin/posts/">
+                        <button class="btn btn-lg btn-dark me-2" type="button">Back</button>
+                    </a> <!-- Added margin to the right -->
+                    <button class="btn btn-lg btn-danger" type="submit" value="delete" name="deleteBtn">Delete</button>
+                </div>
+
+
 
           </form>
           <?php endif;?>
@@ -235,7 +235,7 @@
 
 
 <h1>Posts page
-    <button class="btn btn-primary"><a class="text-white" href="<?=ROOT?>/admin/posts/add">Add New Post</a></button>
+    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>/admin/posts/add">Add Post</a></button>
 </h1>
 
 
@@ -274,14 +274,14 @@
 
         <td><?=$row['date']?></td>
      
-        <td><a class="text-white" href="<?=ROOT?>/admin/posts/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>/admin/posts/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm">Edit</i></button></a></td>
         
 <!--            
         <a class="text-white" href="<?=ROOT?>/admin/posts/edit/<?=$row['id']?>">Add New</a>
         <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td>
      -->
     
-        <td><a class="text-white" href="<?=ROOT?>/admin/posts/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>/admin/posts/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
 
     
     </tr>
@@ -290,17 +290,7 @@
     <?php } ?>
 </table>
 
-<div class="col-md-12 mb-4">
-  <a href="<?=$PAGE['first_link']?>">
-    <button class="btn btn-primary">First Page</button>
-   </a>
-   <a href="<?=$PAGE['prev_link']?>">
-    <button class="btn btn-primary">Prev Page</button>
-   </a>
-   <a href="<?=$PAGE['next_link']?>">
-    <button class="btn btn-primary float-end">Next Page</button>
-   </a>
-</div>
+
 
 </div>
 

@@ -163,9 +163,7 @@
     
 <main class="form-signin w-100 m-auto">
   <form method="post" enctype="multipart/form-data">
-    <a href="home">
-      <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-    </a>
+   
    
     <h1 class="h3 mb-3 fw-normal">Create account</h1>
 
@@ -180,7 +178,7 @@
 
        <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
+                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 2px solid gray;  border-radius: 4px">                  </div>
                     <input onchange="display_image_edit(this.files[0])" type="file" name="image">
                  </label>
 

@@ -1,11 +1,10 @@
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
           <form method="post" enctype="multipart/form-data">
-          <a href="home">
-            <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-          </a>
+       
         
-          <h1 class="h3 mb-3 fw-normal">Create account</h1>
+          <h1 class="h3 mb-3 fw-normal mx-auto text-center m-4">Create account</h1>
+
 
         <?php if(!empty($errors)){ ?>
           <div class="alert alert-danger">
@@ -15,8 +14,10 @@
 
           <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;">                  </div>
-                    <input onchange="display_image_edit(this.files[0])" type="file" name="image">
+                  <img class="mx-auto d-block image-preview-edit" src="../../public/assets/images/addimage.png"  style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
+                    
+                  <input onchange="display_image_edit(this.files[0])" type="file" name="image" class="mx-auto mt-5">
+
                  </label>
 
              
@@ -42,7 +43,7 @@
 
 
           <div class="form-floating">
-            <input value="<?php echo old_value('email')?>" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input value="<?php echo old_value('email')?>" name="email" type="email" class="form-control mb-2" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
           </div>
 
@@ -54,7 +55,7 @@
 
 
 
-          <div class="form-floating my-3">
+          <div class="form-floating mb-2">
             <select name="role" class="form-select">
               <option value="user">User</option>
               <option value="admin">Admin</option>
@@ -73,7 +74,7 @@
 
 
           <div class="form-floating">
-            <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control mb-2" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
           </div>
 
@@ -85,13 +86,13 @@
 
 
           <div class="form-floating">
-            <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
+            <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control mb-2" id="floatingPassword" placeholder="Retype Password">
             <label for="floatingPassword">Retype Password</label>
           </div>
 
           
-          <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Create</button>
-          <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-primary" type="button">back</button></a>
+          <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Create</button>
+          <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-dark" type="button">back</button></a>
         </form>
       </div>
 
@@ -101,11 +102,9 @@
 
                   <div class="col-md-6 mx-auto">
                   <form method="post" enctype="multipart/form-data">
-                  <a href="home">
-                    <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-                  </a>
+                 
                 
-                  <h1 class="h3 mb-3 fw-normal">Edit account</h1>
+                  <h1 class="h3 mb-3 fw-normal text-center mt-4">Edit account</h1>
 
               <?php if(!empty($row)):?>
 
@@ -118,8 +117,8 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover;"></div>
-                    <input type="file" name="image" onchange="display_image_edit(this.files[0])">
+                    <img class="mx-auto d-block image-preview-edit mb-4" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;"></div>
+                    <input type="file" name="image" onchange="display_image_edit(this.files[0])" class= "mb-4">
                   </label>
                 
                   <script>
@@ -160,7 +159,7 @@
             <?php }?>
 
 
-                  <div class="form-floating">
+                  <div class="form-floating my-3">
                     <input value="<?php echo old_value('email',$row['email'])?>" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                   </div>
@@ -171,7 +170,7 @@
                     </div>
                     <?php }?>
 
-                  <div class="form-floating">
+                  <div class="form-floating my-3">
                     <input value="<?php echo old_value('password')?>"  name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                   </div>
@@ -189,8 +188,8 @@
                   </div>
 
                   
-                  <button class="mt-4 w-30 btn btn-lg btn-primary float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
+                  <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Save</button>
+                  <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
               </a>
 
               <?php endif;?>
@@ -201,11 +200,9 @@
 <?php elseif($action == 'delete'):?>
               <div class="col-md-6 mx-auto">
               <form method="post">
-              <a href="home">
-                <img class="mb-4 rounded-circle shadow" src="<?=ROOT?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit:cover;">
-              </a>
+             
             
-              <h1 class="h3 mb-3 fw-normal">Delete Account account</h1>
+              <h1 class="h3  fw-normal my-4 text-center">Delete Account account</h1>
 
           <?php if(!empty($row)):?>
 
@@ -215,11 +212,13 @@
               </div>
             <?php  }?>
 
-              <div class="form-floating">
-                <div class="form-control mb-2">
-                <?=old_value('username',$row['username'])?>
-              </div>
+            <div class="form-floating text-center"> <!-- Added text-center class -->
+              <h5>Username</h5>
+                <div class="form-control mx-auto mb-2" style="max-width: 200px;"> <!-- Added mx-auto class for centering and max-width for smaller box -->
+                    <?=old_value('username',$row['username'])?>
+                </div>
             </div>
+
               
               </div>
 
@@ -229,8 +228,9 @@
                 </div>
                 <?php }?>
 
-              <div class="form-floating">
-                <div class="form-control mb-2">
+              <div class="form-floating text-center">
+              <h5>Email</h5>
+                <div class="form-control mx-auto mb-2 " style="max-width: 200px;">
                 <?=old_value('email',$row['email'])?>
               </div>
             </div>
@@ -243,9 +243,11 @@
 
 
               
-              <button class="mt-4 w-30 btn btn-lg btn-danger float-end" type="submit" value="delete" name="deleteBtn">Delete</button>
-              <a href = "<?=ROOT?>/admin/users/"><button class="mt-4 w-30 btn btn-lg btn-primary " type="button">back</button>
-          </a>
+                <div class="mt-4 text-center">
+                    
+                    <a href="<?=ROOT?>/admin/users/"><button class="btn btn-lg btn-dark ms-2" type="button">Back</button></a> <!-- Added margin to the left -->
+                    <button class="btn btn-lg btn-danger" type="submit" value="delete" name="deleteBtn">Delete</button>
+                </div>
 
           </form>
           <?php endif;?>
@@ -255,8 +257,8 @@
 <?php else:?>
 
 
-<h1>users page
-    <button class="btn btn-primary"><a class="text-white" href="<?=ROOT?>/admin/users/add">Add New</a></button>
+<h1>Users Page
+    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>/admin/users/add">Add New</a></button>
 </h1>
 
 
@@ -297,14 +299,14 @@
 
         <td><?=$row['date']?></td>
      
-        <td><a class="text-white" href="<?=ROOT?>/admin/users/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>/admin/users/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm">edit</i></button></a></td>
         
 <!--            
         <a class="text-white" href="<?=ROOT?>/admin/users/edit/<?=$row['id']?>">Add New</a>
         <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td>
      -->
     
-        <td><a class="text-white" href="<?=ROOT?>/admin/users/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>/admin/users/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">delete</i></button></a></td>
 
     
     </tr>
