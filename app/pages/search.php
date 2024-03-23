@@ -1,6 +1,5 @@
 <?php 
     $user_image = $_SESSION['USER']['image'];
-
 ?>
 
 <!doctype html>
