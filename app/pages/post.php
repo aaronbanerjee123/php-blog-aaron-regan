@@ -197,7 +197,8 @@
                     response.forEach(function(comment) {
                   
                       
-                    $('#newest').append('<div class="form-group"><h1>' + comment.comment + '</h1><h5>Comment by ' + comment.username + '</h5></div>'); //make these comments look better
+                      $('#newest').append('<div class="form-group m-1" style="border: 2px solid gray; border-radius: 4px;"><h7 style="color: gray;">Comment by ' + comment.username + '</h7><h6>' + comment.comment + '</h6></div>');
+
                 });
                   
          
